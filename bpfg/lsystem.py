@@ -104,11 +104,14 @@ class LSystem:
     # Create a new mesh object
     if mesh == None:
       bpy.ops.object.add(type='MESH')
-      mesh = bpy.context.object.data
+      mesh = bpy.context.active_object.data
 
     # Create a BMesh representation
     self._bm = bmesh.new()
     self._bm.from_mesh(mesh)
+
+    # Clear existing content (TODO: Could be implemented better)
+    self._bm.clear()
 
     # Interpret the L-System
     self.interpret()

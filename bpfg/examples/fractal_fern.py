@@ -4,8 +4,6 @@ from bpfg.node import Node
 from bpfg.builtin import SB, EB, Left, Right, Forward
 import math
 
-WIDTH = 3
-
 ANGLE = math.radians(45.0)
 STEPS = 18
 D = 3
