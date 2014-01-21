@@ -55,8 +55,7 @@ class Left(node.Node):
 
   def interpret(self, tree):
     branch = tree.branch()
-    branch.rotation = (mathutils.Quaternion((0.0, 0.0, 1.0), self._angle)
-                    * branch.rotation)
+    branch.rotate(mathutils.Quaternion((0.0, 0.0, 1.0), self._angle))
 
 class Right(node.Node):
   def __init__(self, angle):
@@ -65,8 +64,43 @@ class Right(node.Node):
 
   def interpret(self, tree):
     branch = tree.branch()
-    branch.rotation = (mathutils.Quaternion((0.0, 0.0, 1.0), -self._angle)
-                    * branch.rotation)
+    branch.rotate(mathutils.Quaternion((0.0, 0.0, 1.0), -self._angle))
+
+class Up(node.Node):
+  def __init__(self, angle):
+    node.Node.__init__(self, "Up({})".format(angle))
+    self._angle = angle
+
+  def interpret(self, tree):
+    branch = tree.branch()
+    branch.rotate(mathutils.Quaternion((0.0, 1.0, 0.0), -self._angle))
+
+class Down(node.Node):
+  def __init__(self, angle):
+    node.Node.__init__(self, "Down({})".format(angle))
+    self._angle = angle
+
+  def interpret(self, tree):
+    branch = tree.branch()
+    branch.rotate(mathutils.Quaternion((0.0, 1.0, 0.0), self._angle))
+
+class RollLeft(node.Node):
+  def __init__(self, angle):
+    node.Node.__init__(self, "RollLeft({})".format(angle))
+    self._angle = angle
+
+  def interpret(self, tree):
+    branch = tree.branch()
+    branch.rotate(mathutils.Quaternion((1.0, 0.0, 0.0), -self._angle))
+
+class RollRight(node.Node):
+  def __init__(self, angle):
+    node.Node.__init__(self, "RollRight({})".format(angle))
+    self._angle = angle
+
+  def interpret(self, tree):
+    branch = tree.branch()
+    branch.rotate(mathutils.Quaternion((1.0, 0.0, 0.0), self._angle))
 
 class SetWidth(node.Node):
   def __init__(self, width):

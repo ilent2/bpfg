@@ -28,21 +28,24 @@ class Branch:
     self.active_vert = None
 
     self.position = mathutils.Vector((0.0, 0.0, 0.0))
-    self.rotation = mathutils.Quaternion((1.0, 0.0, 0.0, 0.0))
+    self._rotation = mathutils.Quaternion((1.0, 0.0, 0.0, 0.0))
 
   def copy(self):
     branch = Branch(self._tree, self.depth)
     branch.position += self.position
-    branch.rotation *= self.rotation
+    branch._rotation *= self._rotation
     branch.active_vert = self.active_vert
     return branch
 
   def forward(self):
-    return self.rotation * mathutils.Vector((1.0, 0.0, 0.0))
+    return self._rotation * mathutils.Vector((1.0, 0.0, 0.0))
 
   def left(self):
-    return self.rotation * mathutils.Vector((0.0, 1.0, 0.0))
+    return self._rotation * mathutils.Vector((0.0, 1.0, 0.0))
 
   def up(self):
-    return self.rotation * mathutils.Vector((0.0, 0.0, 1.0))
+    return self._rotation * mathutils.Vector((0.0, 0.0, 1.0))
 
+  def rotate(self, rotation):
+    rotation.rotate(self._rotation)
+    self._rotation = rotation

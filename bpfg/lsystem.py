@@ -113,6 +113,11 @@ class LSystem:
     # Clear existing content (TODO: Could be implemented better)
     self._bm.clear()
 
+    # Add contents of buffer to tree
+    if len(self._buffer) != 0:
+      self._lsystem.extend(self._buffer)
+      self._buffer = []
+
     # Interpret the L-System
     self.interpret()
 
